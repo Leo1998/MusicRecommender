@@ -5,5 +5,5 @@
 @ATTRIBUTE FeatureTable STRING
 
 @DATA
-'/home/fricke/MusicRecommender/music_data.arff', '28'
+'/home/fricke/MusicRecommender/music_data.arff', '/home/fricke/MusicRecommender/featureTable.arff'
 
