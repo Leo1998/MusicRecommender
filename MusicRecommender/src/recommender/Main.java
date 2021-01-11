@@ -2,6 +2,7 @@ package recommender;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 
 
 public class Main {
@@ -11,8 +12,10 @@ public class Main {
 
 		Process process = null;
 		try {
-			ProcessBuilder builder = new ProcessBuilder(".././amuse.sh");
+			ProcessBuilder builder = new ProcessBuilder("./amuse.sh");
 			builder.redirectErrorStream(true);
+			builder.redirectOutput(Redirect.INHERIT);
+			builder.directory(new File("../"));
 			process = builder.start();
 		} catch (IOException e) {
 			e.printStackTrace();
