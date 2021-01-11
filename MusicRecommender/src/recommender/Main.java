@@ -9,11 +9,15 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello Music:)");
 
+		Process process = null;
 		try {
-			Process p = Runtime.getRuntime().exec("./amuse.sh", null, new File("../"));
+			ProcessBuilder builder = new ProcessBuilder(".././amuse.sh");
+			builder.redirectErrorStream(true);
+			process = builder.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }
