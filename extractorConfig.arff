@@ -1,10 +1,9 @@
-% File table with extractor tasks
+
 @RELATION amuse_task
 
-% List with music files
 @ATTRIBUTE MusicFileList STRING
-% Features to extract from the corresponding list
 @ATTRIBUTE FeatureTable STRING
 
 @DATA
-/scratch/Musikinformatik/Genres-Datensatz/Classical/A.A.Owen-Mysteries_1.mp3 28
+'/home/fricke/MusicRecommender/music_data.arff', '28'
+
