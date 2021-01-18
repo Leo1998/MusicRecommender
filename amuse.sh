@@ -1,7 +1,5 @@
 #!/bin/sh
 
-mkdir tasks
-
 cd AMUSE/amuse
 export AMUSEHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 

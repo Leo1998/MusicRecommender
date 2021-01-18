@@ -16,6 +16,7 @@ public class Main {
 		
 		File workingDir = new File("../");
 		File taskDir = new File(workingDir, "tasks");
+		taskDir.mkdir();
 						
 		Process process = null;
 		try {
