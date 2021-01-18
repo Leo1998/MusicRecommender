@@ -56,7 +56,7 @@ public class AmuseHelper {
 			writer.write("@ATTRIBUTE FeatureTable String\n");
 			
 			writer.write("@DATA\n");
-			writer.write("'" + musicFileList.getAbsolutePath() + "', '/home/fricke/MusicRecommender/featureTable.arff'\n");
+			writer.write("'" + musicFileList.getAbsolutePath() + "', '" + new File(taskDir, "../featureTable.arff").getAbsolutePath() + "'\n");
 
 			writer.close();
 			
@@ -86,7 +86,7 @@ public class AmuseHelper {
 
 			
 			writer.write("@DATA\n");
-			writer.write("'" + musicFileList.getAbsolutePath() + "', RAW_FEATURE_LIST, '/home/fricke/MusicRecommender/featureTable.arff', '1', milliseconds, 5000, 2500, '0', ''\n");
+			writer.write("'" + musicFileList.getAbsolutePath() + "', RAW_FEATURE_LIST, '" + new File(taskDir, "../featureTable.arff").getAbsolutePath() + "', '1', milliseconds, 5000, 2500, '0', ''\n");
 
 			writer.close();
 			

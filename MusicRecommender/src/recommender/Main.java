@@ -39,8 +39,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+
 		helper.extractAndProcessSongs(allSongs);
-		
+
 		helper.endLoop();
 
 	}
