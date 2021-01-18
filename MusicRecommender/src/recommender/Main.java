@@ -1,10 +1,12 @@
 package recommender;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -26,20 +28,19 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		AmuseHelper helper = new AmuseHelper(taskDir);
 		
-		File file = new File(taskDir, "end_loop");
-		try {			
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			writer.write("-end_loop");
-			writer.close();
+		List<File> allSongs = new ArrayList<>();
+		File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
+		try {
+			Files.walk(dir.toPath(), FileVisitOption.FOLLOW_LINKS).filter(Files::isRegularFile).forEach(path -> allSongs.add(path.toFile()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//helper.extractAndProcessSongs(allSongs);
+		
+		helper.endLoop();
 
 	}
 
