@@ -1,10 +1,14 @@
 package recommender;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AmuseHelper {
@@ -105,6 +109,12 @@ public class AmuseHelper {
 		runTask("extract", "-fe " + extractFile.getAbsolutePath());
 		runTask("process", "-fp " + processFile.getAbsolutePath());
 	}
+	
+	public File extractAndProcessSong(File file) {
+		extractAndProcessSongs(Arrays.asList(file));
+		
+		return new File("../Processed_Features" + file.getAbsolutePath());
+	}
 		
 	public void endLoop() {
 		runTask("end_loop", "-end_loop");
@@ -127,6 +137,37 @@ public class AmuseHelper {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public List<double[]> parseProcessedFeatures(File file) {
+		List<double[]> result = new ArrayList<double[]>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			
+			String line = "";
+			while((line = reader.readLine()) != null) {
+				if (line.startsWith("@"))
+					continue;
+				if (line.startsWith("%"))
+					continue;
+				if (line.trim().isEmpty())
+					continue;
+				
+				String[] tokens = line.split(",");
+				double[] vector = new double[26];
+				for (int i = 0; i < 26; i++) {
+					vector[i] = Double.parseDouble(tokens[i]);
+				}
+				
+				result.add(vector);
+			}
+			
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
+		return result;
 	}
 	
 }
