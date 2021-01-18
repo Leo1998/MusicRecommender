@@ -1,4 +1,3 @@
-
 @RELATION amuse_task
 
 @ATTRIBUTE MusicFileList STRING
