@@ -39,7 +39,10 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		//helper.extractAndProcessSongs(allSongs);
+		List<File> l = new ArrayList<File>();
+		l.add(allSongs.get(0));
+		
+		helper.extractAndProcessSongs(l);
 		
 		helper.endLoop();
 
