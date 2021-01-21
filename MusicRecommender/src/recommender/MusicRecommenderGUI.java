@@ -61,8 +61,13 @@ public class MusicRecommenderGUI {
 		
 		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
 		List<Tuple<File, Integer>> similar = Main.findSimilar(helper, test);
-
-		helper.endLoop();
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				helper.endLoop();
+			}
+		}));
 	}
 
 	/**
