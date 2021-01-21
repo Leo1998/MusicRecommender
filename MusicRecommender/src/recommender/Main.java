@@ -15,31 +15,31 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello Music:)");
 		
-//		File workingDir = new File("../");
-//		File taskDir = new File(workingDir, "tasks");
-//		taskDir.mkdir();
+		File workingDir = new File("../");
+		File taskDir = new File(workingDir, "tasks");
+		taskDir.mkdir();
 						
-//		Process process = null;
-//		try {
-//			ProcessBuilder builder = new ProcessBuilder("./amuse.sh");
-//			builder.redirectErrorStream(true);
-//			builder.redirectOutput(Redirect.INHERIT);
-//			builder.directory(new File("../"));
-//			process = builder.start();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		AmuseHelper helper = new AmuseHelper(taskDir);
-
-		//File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
-		//List<File> allSongs = getFiles(dir);
-		//helper.extractAndProcessSongs(allSongs);
+		Process process = null;
+		try {
+			ProcessBuilder builder = new ProcessBuilder("./amuse.sh");
+			builder.redirectErrorStream(true);
+			builder.redirectOutput(Redirect.INHERIT);
+			builder.directory(new File("../"));
+			process = builder.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		AmuseHelper helper = new AmuseHelper(taskDir);
+		
+		File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
+		List<File> allSongs = getFiles(dir);
+		helper.extractAndProcessSongs(allSongs);
 		
 //		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
 //		List<Tuple<File, Integer>> similar = findSimilar(helper, test);
 //
-//		helper.endLoop();
+		helper.endLoop();
 
 	}
 	
