@@ -6,6 +6,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -36,7 +37,7 @@ public class Main {
 		//helper.extractAndProcessSongs(allSongs);
 		
 		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
-		List<File> similar = findSimilar(helper, test);
+		List<Tuple<File, Integer>> similar = findSimilar(helper, test);
 
 		helper.endLoop();
 
@@ -45,8 +46,8 @@ public class Main {
 	public static double MIN_DIST = 10;
 	public static double MIN_COUNT_OF_SIMILAR_WINDOWS = 15;
 	
-	public static List<File> findSimilar(AmuseHelper helper, File input) {
-		List<File> results = new ArrayList<File>();
+	public static List<Tuple<File, Integer>> findSimilar(AmuseHelper helper, File input) {
+		List<Tuple<File, Integer>> results = new ArrayList<>();
 		
 		File processedFile = helper.extractAndProcessSong(input);
 		System.out.println(processedFile.getAbsolutePath());
@@ -69,11 +70,18 @@ public class Main {
 			}
 			
 			if (countOfSimilarWindows > MIN_COUNT_OF_SIMILAR_WINDOWS) {
-				results.add(file);
+				results.add(new Tuple<File, Integer>(file, countOfSimilarWindows));
 				System.out.println("Found : " + file.getName() + " similarWindows: " + countOfSimilarWindows);
 			}
 		}
 		
+		results.sort(new Comparator<Tuple<File, Integer>>() {
+			@Override
+			public int compare(Tuple<File, Integer> o1, Tuple<File, Integer> o2) {
+				return o2.getSecond() - o1.getSecond();
+			}
+		});
+				
 		return results;
 	}
 	
