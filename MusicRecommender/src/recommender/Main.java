@@ -6,7 +6,6 @@ import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,20 +35,53 @@ public class Main {
 		//List<File> allSongs = getFiles(dir);
 		//helper.extractAndProcessSongs(allSongs);
 		
+		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
+		List<File> similar = findSimilar(helper, test);
 
+		helper.endLoop();
+
+	}
+	
+	public static List<File> findSimilar(AmuseHelper helper, File input) {
+		List<File> results = new ArrayList<File>();
 		
+		File processedFile = helper.extractAndProcessSong(input);
+		System.out.println(processedFile.getAbsolutePath());
+		
+		List<double[]> inputVectors = helper.parseProcessedFeatures(processedFile);
 
 		List<File> allProcessedFeatures = getFiles(new File("../Processed_Features"));
 		for(File file : allProcessedFeatures) {
 			List<double[]> parsedVectors = helper.parseProcessedFeatures(file);
+			
+			int countOfSimilarWindows = 0;
+
+			for (double[] vec1 : inputVectors) {
+				for (double[] vec2 : parsedVectors) {
+					double dist = euclid(vec1,  vec2);
+					if (dist < 10) {
+						countOfSimilarWindows++;
+					}
+				}
+			}
+			
+			if (countOfSimilarWindows > 20) {
+				results.add(file);
+				System.out.println("Found : " + file.getName() + " similarWindows: " + countOfSimilarWindows);
+			}
 		}
 		
-		//File processedFile = helper.extractAndProcessSong(new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3"));
-		//System.out.println(processedFile.getAbsolutePath());
+		return results;
+	}
+	
+	public static double euclid(double[] vec1, double[] vec2) {
+		assert(vec1.length == vec2.length);
 		
-
-		helper.endLoop();
-
+		double sum = 0.0;
+		for(int i = 0; i < vec1.length; i++) {
+			sum += Math.pow(vec1[i] - vec2[i], 2);
+		}
+		return Math.sqrt(sum);
 	}
 	
 	public static List<File> getFiles(File dir) {

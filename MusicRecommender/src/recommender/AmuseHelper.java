@@ -113,7 +113,8 @@ public class AmuseHelper {
 	public File extractAndProcessSong(File file) {
 		extractAndProcessSongs(Arrays.asList(file));
 		
-		return new File("../Processed_Features" + file.getAbsolutePath());
+		String name = file.getName().substring(0, file.getName().length() - 4);
+		return new File("../Processed_Features" + file.getParent() + "/" + name + "/" + name + "_1__0__5000ms_2500ms.arff");
 	}
 		
 	public void endLoop() {
