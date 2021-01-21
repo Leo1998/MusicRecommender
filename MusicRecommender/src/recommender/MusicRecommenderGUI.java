@@ -4,26 +4,22 @@ import java.awt.EventQueue;
 import java.awt.FileDialog;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
 import javax.swing.JFormattedTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
+
 
 public class MusicRecommenderGUI {
 
 	private JFrame frame;
 	private JTextField txtChosenSong;
-	String interessen[] = {"Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik","Musik", "keine Musik"};
+	private String Songtitel;
+	private String Songpfad;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -68,7 +64,10 @@ public class MusicRecommenderGUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				final JFileChooser fc = new JFileChooser();
-				int returnVal = fc.showOpenDialog(fc);
+				//int returnVal = fc.showOpenDialog(fc);
+				Songpfad = fc.getSelectedFile().getAbsolutePath();
+				Songtitel = fc.getName(fc.getSelectedFile());
+				txtChosenSong.setText(Songtitel);
 			}
 		});
 		btnChooseSong.setBounds(12, 52, 189, 25);
@@ -77,22 +76,14 @@ public class MusicRecommenderGUI {
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setBounds(139, 124, 433, 419);
 		frame.getContentPane().add(formattedTextField);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
+		
+		JButton btnFindSongs = new JButton("finde ähnliche Songs");
+		btnFindSongs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
+		btnFindSongs.setBounds(383, 563, 189, 25);
+		frame.getContentPane().add(btnFindSongs);
 	}
 }
