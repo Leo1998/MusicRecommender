@@ -103,7 +103,7 @@ public class MusicRecommenderGUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				final JFileChooser fc = new JFileChooser();
-				//int returnVal = fc.showOpenDialog(fc);
+				int returnVal = fc.showOpenDialog(fc);
 				Songpfad = fc.getSelectedFile();
 				Songtitel = fc.getName(fc.getSelectedFile());
 				txtChosenSong.setText(Songtitel);
@@ -112,9 +112,10 @@ public class MusicRecommenderGUI {
 		btnChooseSong.setBounds(12, 52, 189, 25);
 		frame.getContentPane().add(btnChooseSong);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(139, 124, 433, 419);
-		frame.getContentPane().add(formattedTextField);
+		JFormattedTextField frmtdtxtfldHierKnnteDein = new JFormattedTextField();
+		frmtdtxtfldHierKnnteDein.setText("Hier könnte dein neuer Lieblinssong stehen");
+		frmtdtxtfldHierKnnteDein.setBounds(139, 124, 433, 419);
+		frame.getContentPane().add(frmtdtxtfldHierKnnteDein);
 		
 		JButton btnFindSongs = new JButton("finde ähnliche Songs");
 		btnFindSongs.addMouseListener(new MouseAdapter() {
