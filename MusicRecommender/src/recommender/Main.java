@@ -39,10 +39,10 @@ public class Main {
 
 		
 
-		/*List<File> allProcessedFeatures = getFiles(new File("../Processed_Features"));
+		List<File> allProcessedFeatures = getFiles(new File("../Processed_Features"));
 		for(File file : allProcessedFeatures) {
 			List<double[]> parsedVectors = helper.parseProcessedFeatures(file);
-		}*/
+		}
 		
 		//File processedFile = helper.extractAndProcessSong(new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3"));
 		//System.out.println(processedFile.getAbsolutePath());
