@@ -1,5 +1,6 @@
 package recommender;
 
+
 import java.awt.EventQueue;
 import java.awt.FileDialog;
 
@@ -10,6 +11,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.util.List;
 
 
 public class MusicRecommenderGUI {
@@ -25,6 +30,24 @@ public class MusicRecommenderGUI {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		//Create new WorkDir for tasks
+		File workingDir = new File("../");
+		File taskDir = new File(workingDir, "tasks");
+		taskDir.mkdir();
+		
+		Process process = null;
+		try {
+			ProcessBuilder builder = new ProcessBuilder("./amuse.sh");
+			builder.redirectErrorStream(true);
+			builder.redirectOutput(Redirect.INHERIT);
+			builder.directory(new File("../"));
+			process = builder.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		AmuseHelper helper = new AmuseHelper(taskDir);
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -35,6 +58,11 @@ public class MusicRecommenderGUI {
 				}
 			}
 		});
+		
+		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
+		List<Tuple<File, Integer>> similar = Main.findSimilar(helper, test);
+
+		helper.endLoop();
 	}
 
 	/**
