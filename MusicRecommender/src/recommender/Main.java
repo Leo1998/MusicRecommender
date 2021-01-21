@@ -42,6 +42,9 @@ public class Main {
 
 	}
 	
+	public static double MIN_DIST = 10;
+	public static double MIN_COUNT_OF_SIMILAR_WINDOWS = 15;
+	
 	public static List<File> findSimilar(AmuseHelper helper, File input) {
 		List<File> results = new ArrayList<File>();
 		
@@ -59,13 +62,13 @@ public class Main {
 			for (double[] vec1 : inputVectors) {
 				for (double[] vec2 : parsedVectors) {
 					double dist = euclid(vec1,  vec2);
-					if (dist < 10) {
+					if (dist < MIN_DIST) {
 						countOfSimilarWindows++;
 					}
 				}
 			}
 			
-			if (countOfSimilarWindows > 20) {
+			if (countOfSimilarWindows > MIN_COUNT_OF_SIMILAR_WINDOWS) {
 				results.add(file);
 				System.out.println("Found : " + file.getName() + " similarWindows: " + countOfSimilarWindows);
 			}
