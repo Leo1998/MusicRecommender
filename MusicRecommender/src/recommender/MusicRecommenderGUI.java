@@ -22,8 +22,8 @@ public class MusicRecommenderGUI {
 	private JFrame frame;
 	private JTextField txtChosenSong;
 	private String Songtitel;
-	private String Songpfad;
-	
+	private File Songpfad;
+	private static AmuseHelper helper;
 	
 
 	/**
@@ -46,7 +46,7 @@ public class MusicRecommenderGUI {
 			e.printStackTrace();
 		}
 		
-		AmuseHelper helper = new AmuseHelper(taskDir);
+		helper = new AmuseHelper(taskDir);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -59,8 +59,8 @@ public class MusicRecommenderGUI {
 			}
 		});
 		
-		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
-		List<Tuple<File, Integer>> similar = Main.findSimilar(helper, test);
+		//File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
+		//List<Tuple<File, Integer>> similar = Main.findSimilar(helper, test);
 
 		helper.endLoop();
 	}
@@ -93,7 +93,7 @@ public class MusicRecommenderGUI {
 			public void mouseClicked(MouseEvent e) {
 				final JFileChooser fc = new JFileChooser();
 				//int returnVal = fc.showOpenDialog(fc);
-				Songpfad = fc.getSelectedFile().getAbsolutePath();
+				Songpfad = fc.getSelectedFile();
 				Songtitel = fc.getName(fc.getSelectedFile());
 				txtChosenSong.setText(Songtitel);
 			}
@@ -109,9 +109,11 @@ public class MusicRecommenderGUI {
 		btnFindSongs.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Main.findSimilar(helper, Songpfad);
 			}
 		});
 		btnFindSongs.setBounds(383, 563, 189, 25);
 		frame.getContentPane().add(btnFindSongs);
 	}
+	
 }
