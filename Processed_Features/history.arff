@@ -1,8 +1,0 @@
-@RELATION ProcessingHistory
-
-@ATTRIBUTE 'Id' NUMERIC
-@ATTRIBUTE 'Date' STRING
-@ATTRIBUTE 'ProcessingParameterUsed' STRING
-
-@DATA
-1,'25.01.2021 15:28:32','1__0__5000ms_2500ms'
