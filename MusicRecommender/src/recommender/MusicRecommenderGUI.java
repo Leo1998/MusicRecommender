@@ -53,7 +53,7 @@ public class MusicRecommenderGUI {
 			e.printStackTrace();
 		}
 		
-		helper = new AmuseHelper(taskDir);
+		helper = new AmuseHelper(workingDir, taskDir);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -114,6 +114,8 @@ public class MusicRecommenderGUI {
 				Songpfad = fc.getSelectedFile();
 				Songtitel = fc.getName(fc.getSelectedFile());
 				txtChosenSong.setText(Songtitel);
+				
+				listModel.clear();
 			}
 		});
 		btnChooseSong.setBounds(12, 52, 189, 25);

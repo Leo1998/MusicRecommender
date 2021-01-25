@@ -30,7 +30,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		AmuseHelper helper = new AmuseHelper(taskDir);
+		AmuseHelper helper = new AmuseHelper(workingDir, taskDir);
 		
 		File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
 		List<File> allSongs = getFiles(dir);

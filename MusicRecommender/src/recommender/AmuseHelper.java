@@ -15,8 +15,51 @@ public class AmuseHelper {
 
 	private File taskDir;
 	
-	public AmuseHelper(File taskDir) {
+	public AmuseHelper(File workingDir, File taskDir) {
 		this.taskDir = taskDir;
+		
+		File amuseConfig = new File(workingDir, "AMUSE/amuse/config/amuse.properties");
+		
+		File featuresDir = new File(workingDir, "Features");
+		File processedFeaturesDir = new File(workingDir, "Processed_Features");
+
+		featuresDir.mkdir();
+		processedFeaturesDir.mkdir();
+		
+		String originalFileContent = "";
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(amuseConfig));
+
+            String currentReadingLine = reader.readLine();
+
+            while (currentReadingLine != null) {
+                originalFileContent += currentReadingLine + System.lineSeparator();
+                currentReadingLine = reader.readLine();
+            }
+
+            String modifiedFileContent = originalFileContent.replaceAll("/home/Processed_Features", processedFeaturesDir.getAbsolutePath());
+            modifiedFileContent = modifiedFileContent.replaceAll("/home/Features", featuresDir.getAbsolutePath());
+
+            writer = new BufferedWriter(new FileWriter(amuseConfig));
+            writer.write(modifiedFileContent);
+        } catch (IOException e) {
+            //handle exception
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                //handle exception
+            }
+        }
 	}
 	
 	public File createMusicFileList(List<File> mp3List) {
