@@ -101,5 +101,18 @@ public class Main {
 		}
 		return files;
 	}
+	
+	public static File findMp3(String songname) {
+		File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
+		List<File> allSongs = getFiles(dir);
+		
+		for(File file : allSongs) {
+			if (file.getName().startsWith(songname)) {
+				return file;
+			}
+		}
+		
+		return null;
+	}
 
 }
