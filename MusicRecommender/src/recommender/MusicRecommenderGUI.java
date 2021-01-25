@@ -20,6 +20,8 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 
 public class MusicRecommenderGUI {
@@ -58,7 +60,8 @@ public class MusicRecommenderGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MusicRecommenderGUI window = new MusicRecommenderGUI();
+					MusicRecommenderGUI window = new MusicRecommenderGUI();					
+					window.frame.setLocationRelativeTo(null);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -101,7 +104,7 @@ public class MusicRecommenderGUI {
 		
 		txtChosenSong = new JTextField();
 		txtChosenSong.setText("noch kein Titel gewählt");
-		txtChosenSong.setBounds(12, 12, 206, 28);
+		txtChosenSong.setBounds(12, 12, 848, 28);
 		frame.getContentPane().add(txtChosenSong);
 		txtChosenSong.setColumns(10);
 		
@@ -167,5 +170,10 @@ public class MusicRecommenderGUI {
 		list.addMouseListener(mouseListener);
 		
 		frame.getContentPane().add(list);
+		
+		JLabel lblTitelDoppeltKlicken = new JLabel("Titel doppelt klicken zum Abspielen");
+		lblTitelDoppeltKlicken.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitelDoppeltKlicken.setBounds(139, 476, 625, 15);
+		frame.getContentPane().add(lblTitelDoppeltKlicken);
 	}
 }
