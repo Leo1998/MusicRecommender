@@ -1,8 +1,0 @@
-@RELATION amuse_task
-
-@ATTRIBUTE MusicFileList STRING
-@ATTRIBUTE FeatureTable STRING
-
-@DATA
-'/home/fricke/MusicRecommender/music_data.arff', '/home/fricke/MusicRecommender/featureTable.arff'
-
