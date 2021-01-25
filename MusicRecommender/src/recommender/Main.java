@@ -34,7 +34,7 @@ public class Main {
 		
 		File dir = new File("/scratch/Musikinformatik/Genres-Datensatz");
 		List<File> allSongs = getFiles(dir);
-		helper.extractAndProcessSongs(allSongs);
+		//helper.extractAndProcessSongs(allSongs);
 		
 //		File test = new File("/home/fricke/The_FireSoul-Behind_My_Back.mp3");
 //		List<Tuple<File, Integer>> similar = findSimilar(helper, test);
@@ -44,7 +44,6 @@ public class Main {
 	}
 	
 	public static double MIN_DIST = 10;
-	public static double MIN_COUNT_OF_SIMILAR_WINDOWS = 15;
 	
 	public static List<Tuple<File, Integer>> findSimilar(AmuseHelper helper, File input) {
 		List<Tuple<File, Integer>> results = new ArrayList<>();
@@ -69,10 +68,8 @@ public class Main {
 				}
 			}
 			
-			if (countOfSimilarWindows > MIN_COUNT_OF_SIMILAR_WINDOWS) {
-				results.add(new Tuple<File, Integer>(file, countOfSimilarWindows));
-				System.out.println("Found : " + file.getName() + " similarWindows: " + countOfSimilarWindows);
-			}
+			results.add(new Tuple<File, Integer>(file, countOfSimilarWindows));
+			System.out.println("Found : " + file.getName() + " similarWindows: " + countOfSimilarWindows);
 		}
 		
 		results.sort(new Comparator<Tuple<File, Integer>>() {
