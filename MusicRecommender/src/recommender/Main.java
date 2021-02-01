@@ -42,9 +42,7 @@ public class Main {
 		helper.endLoop();
 
 	}
-	
-	public static double MIN_DIST = 10;
-	
+		
 	public static List<Tuple<File, Integer>> findSimilar(AmuseHelper helper, File input) {
 		List<Tuple<File, Integer>> results = new ArrayList<>();
 		
@@ -57,15 +55,33 @@ public class Main {
 		for(File file : allProcessedFeatures) {
 			List<double[]> parsedVectors = helper.parseProcessedFeatures(file);
 			
-			int countOfSimilarWindows = 0;
-
-			for (double[] vec1 : inputVectors) {
-				for (double[] vec2 : parsedVectors) {
-					double dist = euclid(vec1,  vec2);
-					if (dist < MIN_DIST) {
-						countOfSimilarWindows++;
-					}
+			double maxDist = 0;
+			double[][] dists = new double[inputVectors.size()][parsedVectors.size()];
+			for (int i = 0; i < inputVectors.size(); i++) {
+				for (int j = 0; j < parsedVectors.size(); j++) {
+					double[] vec1 = inputVectors.get(i);
+					double[] vec2 = parsedVectors.get(j);
+					double dist = cosine(vec1, vec2);
+					
+					if (dist > maxDist)
+						maxDist = dist;
+			
+					dists[i][j] = dist;
 				}
+			}
+			
+			int countOfSimilarWindows = 0;
+			for (int i = 0; i < inputVectors.size(); i++) {
+				boolean found = false;
+				for (int j = 0; j < parsedVectors.size(); j++) {
+					//normalize
+					//dists[i][j] *= 1 / maxDist;
+					
+					if (dists[i][j] > 0.999)
+						found = true;
+				}
+				if (found)
+					countOfSimilarWindows++;
 			}
 			
 			results.add(new Tuple<File, Integer>(file, countOfSimilarWindows));
@@ -109,11 +125,11 @@ public class Main {
 		double sumX = 0.0;
 		double sumY = 0.0;
 		for(int i = 0; i < vec1.length; i++) {
-			sumProducts += Math.abs(vec1[i] * vec2[i]);
+			sumProducts += vec1[i] * vec2[i];
 			sumX += Math.pow(vec1[i], 2);
 			sumY += Math.pow(vec2[i], 2);
 		}
-		return sumProducts / (Math.sqrt(sumX) * Math.sqrt(sumY));
+		return (sumProducts / (Math.sqrt(sumX) * Math.sqrt(sumY)));
 	}
 	
 	public static List<File> getFiles(File dir) {
