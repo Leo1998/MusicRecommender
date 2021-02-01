@@ -92,6 +92,30 @@ public class Main {
 		return Math.sqrt(sum);
 	}
 	
+	public static double manhattan(double[] vec1, double[] vec2) {
+		assert(vec1.length == vec2.length);
+		
+		double sum = 0.0;
+		for(int i = 0; i < vec1.length; i++) {
+			sum += Math.abs(vec1[i] - vec2[i]);
+		}
+		return sum;
+	}
+	
+	public static double cosine(double[] vec1, double[] vec2) {
+		assert(vec1.length == vec2.length);
+		
+		double sumProducts = 0.0;
+		double sumX = 0.0;
+		double sumY = 0.0;
+		for(int i = 0; i < vec1.length; i++) {
+			sumProducts += Math.abs(vec1[i] * vec2[i]);
+			sumX += Math.pow(vec1[i], 2);
+			sumY += Math.pow(vec2[i], 2);
+		}
+		return sumProducts / (Math.sqrt(sumX) * Math.sqrt(sumY));
+	}
+	
 	public static List<File> getFiles(File dir) {
 		List<File> files = new ArrayList<>();
 		try {
