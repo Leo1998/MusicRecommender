@@ -138,7 +138,7 @@ public class MusicRecommenderGUI {
 						songname += token + "_";
 					}
 					songname = songname.substring(0, songname.length() - 1);
-					listModel.addElement(songname + "\t similarWindows: " + t.getSecond());
+					listModel.addElement(songname );//+ "\t similarWindows: " + t.getSecond());
 				}
 			}
 		});
